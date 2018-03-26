@@ -21,7 +21,7 @@ public class FileSearchTask {
         String keyword = "a1";
         int c = 0;
         File[] files = new File(path).listFiles();
-        ArrayList<Future<Integer>> rs = new ArrayList<>();
+        ArrayList<Future<Integer>> rs = new ArrayList<Future<Integer>>();
         for(File file: files){  //每个文件启动一个task去查找
             MatchCount count = new MatchCount();
             count.file = file;
@@ -52,7 +52,10 @@ class  MatchCount implements Callable<Integer>{
 
     public boolean search(File file){
         boolean founded = false;
-        try(Scanner scanner = new Scanner(new FileInputStream(file))){
+
+        try{
+
+            Scanner scanner = new Scanner(new FileInputStream(file));
             while(!founded && scanner.hasNextLine()){
                 if (scanner.nextLine().contains(keyword))
                     founded = true;

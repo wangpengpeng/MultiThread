@@ -14,7 +14,7 @@ public class EventStorage {
 
     public EventStorage(){
         maxSize = 10;
-        storage = new LinkedList<>();
+        storage = new LinkedList<Date>();
     }
     /**
      *set方法检查存储列表storage是否还有空间，如果已经满了，就调用wait方法挂起线程并等待

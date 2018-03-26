@@ -14,12 +14,14 @@ public class ThreadFactoryTest implements ThreadFactory{
     private int counter;
     private String name;
     private List<String> stats;
+
     public ThreadFactoryTest(String name){
         counter = 0;
         this.name = name;
-        stats = new ArrayList<>();
+        stats = new ArrayList<String>();
     }
-    @Override
+
+//    @Override
     public Thread newThread(Runnable r) {
         Thread t = new Thread(r,name + "-Thread_" + counter);
         counter ++;

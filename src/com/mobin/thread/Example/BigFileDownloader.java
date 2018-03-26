@@ -1,14 +1,11 @@
 package com.mobin.thread.Example;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -22,9 +19,9 @@ public class BigFileDownloader {
     protected final long fileSize;
     protected final Storage storage;//负责已经下载数据的存储
     protected final  AtomicBoolean taskCanceled = new AtomicBoolean(false);
-    private static final Logger log = LoggerFactory.getLogger(BigFileDownloader.class);
 
     public static synchronized void initLog4j(){
+        
         String log4jFile = System.getProperty("log4j");
         InputStream in = null;
         if (log4jFile !=null){
@@ -49,7 +46,7 @@ public class BigFileDownloader {
     public BigFileDownloader(String strURL) throws Exception {
         requestURL = new URL(strURL);
         fileSize = retiveFileSize(requestURL);
-        log.info("file total size: %s", fileSize);
+        System.out.println("file total size: %s"+ fileSize);
         //String fileName = strURL.substring(strURL.lastIndexOf("/") + 1);
         String fileName = "mobin.flv";
         storage = new Storage(fileSize, fileName);
@@ -85,7 +82,7 @@ public class BigFileDownloader {
             if (complection == 100) {
                 break;
             } else if (complection - lastComplection >= 1){
-                log.info("Complection:%s%%", complection);
+                System.out.println("Complection:%s%%" + complection);
                 if (complection > 90) {
                     reportInterval = 1000;
                 }
@@ -93,7 +90,7 @@ public class BigFileDownloader {
             Thread.sleep(reportInterval);
         }
 
-        log.info("Complection:%s%%",complection);
+        System.out.println("Complection:%s%%" +complection);
     }
 
     private void dispatchWork(final DownloadTask dt, int workerIndex) {
@@ -120,7 +117,8 @@ public class BigFileDownloader {
         }
     }
 
-    private static long retiveFileSize(URL requestURL) throws Exception {
+     private static long retiveFileSize(URL requestURL) throws Exception {
+
        long size = -1;
         HttpURLConnection conn = null;
         try {

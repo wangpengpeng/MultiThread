@@ -1,7 +1,5 @@
 package com.mobin.thread.Example;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -23,7 +21,6 @@ public class DownloadTask implements Runnable {
     private final DownloadBuffer xbuf;
     private final URL requestURL;
     private final AtomicBoolean cancelFlag;
-    private static final Logger log = LoggerFactory.getLogger(DownloadTask.class);
 
     public DownloadTask(long lowerBound, long upperBound, URL requestURL,
                         Storage storage, AtomicBoolean cancelFlag){
@@ -61,7 +58,7 @@ public class DownloadTask implements Runnable {
 
     private static InputStream issueRequest(URL requestURL, long lowerBound, long upperBound) throws IOException {
         Thread me = Thread.currentThread();
-        log.info(me + "->[" + lowerBound + "," + upperBound + "]");
+        System.out.println(me + "->[" + lowerBound + "," + upperBound + "]");
         final HttpURLConnection conn;
         InputStream in = null;
         conn = (HttpURLConnection) requestURL.openConnection();
@@ -84,7 +81,7 @@ public class DownloadTask implements Runnable {
             conn.disconnect();
             throw new IOException("Server exception, staus code:" + statusCode);
         }
-        log.info(me + "-Content-Range:" + conn.getHeaderField("Content-Range")
+        System.out.println(me + "-Content-Range:" + conn.getHeaderField("Content-Range")
         + ",connection:" + conn.getHeaderField("connection"));
 
         in = new BufferedInputStream(conn.getInputStream()){

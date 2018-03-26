@@ -18,7 +18,7 @@ public class FileSearchExecutor {
         int c = 0;
         File[] files = new File(path).listFiles();
         ExecutorService pool = Executors.newCachedThreadPool();
-        ArrayList<Future<Integer>> rs = new ArrayList<>();
+        ArrayList<Future<Integer>> rs = new ArrayList<Future<Integer>>();
         for(File file: files){
             MatchCount count = new MatchCount();
             count.file = file;
@@ -50,7 +50,9 @@ class  MatchCount implements Callable<Integer>{
 
     public boolean search(File file){
         boolean founded = false;
-        try(Scanner scanner = new Scanner(new FileInputStream(file))){
+
+        try{
+            Scanner scanner = new Scanner(new FileInputStream(file));
             while(!founded && scanner.hasNextLine()){
                 if (scanner.nextLine().contains(keyword))
                     founded = true;

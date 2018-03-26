@@ -10,6 +10,7 @@ import java.util.TimerTask;
  * Created by Mobin on 2016/1/27.
  */
 public class TimerDaemon {
+
    //private static Timer timer = new Timer();      //创建定时器
   private static Timer timer = new Timer(true); //定时器为守护线程
     static  public class MyTask extends TimerTask{

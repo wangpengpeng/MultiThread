@@ -8,8 +8,10 @@ import java.util.Random;
 public class ThreadLocalTest {
 
     private static ThreadLocal threadLocal = new ThreadLocal();
+
     public static void main(String[] args){
         for (int i = 0; i < 2; i ++) {
+
             new Thread(new Runnable() {
                 public void run() {
                     int data = new Random().nextInt();
@@ -24,15 +26,18 @@ public class ThreadLocalTest {
 
    static class  A{
         public  void get(){
-              int data = (int)threadLocal.get();
-              System.out.println("A线程 :  "+Thread.currentThread().getName()+"   data:  "+data);
+//              int data = (int)threadLocal.get();
+//              int data =  threadLocal.get();
+              System.out.println("A线程 :  "+Thread.currentThread().getName()+"   data:  ");
         }
     }
 
     static    class B{
         public void get(){
-            int data = (int)threadLocal.get();
-            System.out.println("B线程 :  "+Thread.currentThread().getName()+"   data:  "+data);
+//            int data = (int)threadLocal.get();
+//            System.out.println("B线程 :  "+Thread.currentThread().getName()+"   data:  "+data);
+//            int data = (int)threadLocal.get();
+            System.out.println("B线程 :  "+Thread.currentThread().getName()+"   data:  ");
         }
     }
 }

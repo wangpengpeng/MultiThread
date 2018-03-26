@@ -1,8 +1,5 @@
 package com.mobin.thread.Example;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -15,7 +12,6 @@ public class Storage implements Closeable, AutoCloseable{
     private final RandomAccessFile storeFile;
     private final FileChannel storeChannel;
     protected final AtomicLong totalWrites = new AtomicLong(0);
-    private static final Logger log = LoggerFactory.getLogger(Storage.class);
 
     public Storage(long fileSize,String fileShortName) throws FileNotFoundException {
         String fullFileName = "F:" + "/" + fileShortName;
@@ -38,7 +34,7 @@ public class Storage implements Closeable, AutoCloseable{
 
     private String createStoreFile(long fileSize, String fullFileName) throws FileNotFoundException {
         File file = new File(fullFileName);
-        log.info("Create local file: %s", fullFileName);
+        System.out.println("Create local file: %s" + fullFileName);
         RandomAccessFile raf = new RandomAccessFile(file, "rw");
         try {
             raf.setLength(fileSize);
